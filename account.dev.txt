@@ -91,7 +91,7 @@
     },
     {
         "name": "oo",
-        "value": "v1%7C3%3A1725645361",
+        "value": "v1%7C3%3A1725646400",
         "domain": ".facebook.com",
         "hostOnly": false,
         "path": "/",
@@ -101,7 +101,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1760205361,
+        "expirationDate": 1760206400,
         "storeId": null
     },
     {
