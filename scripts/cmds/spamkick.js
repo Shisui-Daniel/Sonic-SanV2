@@ -1,89 +1,71 @@
-let messageCounts = {};
+module.exports.languages = {
+  "en": {
+      "on": "On",
+      "off": "Off",
+      "successText": "Spam kick",
+      "onlyGroupThread": "Can only be used in group chats."
+  }
+};
+module.exports.config = {
+  name: "spamkick",
+  version: "1.0.0",
+  role: 1, 
+  author: "Dipto",
+  usePrefix: true,
+  description: "Automatically kick a user who spams messages in a group chat",
+  category: "box chat",
+  usages: "[on/off] or [settings]",
+  cooldowns: 5,
+  dependencies: {"fs-extra": ""}
+};
+module.exports.onChat = async ({ api, event, Users, Threads }) => {
+  const { senderID, threadID } = event;
+  if (!global.antispam) global.antispam = new Map();
 
-const spamThreshold = 5;
+  const threadInfo = global.antispam.has(threadID) ? global.antispam.get(threadID) : { users: {} };
+  if (!(senderID in threadInfo.users)) {
+    threadInfo.users[senderID] = { count: 1, time: Date.now() };
+  } else {
+    threadInfo.users[senderID].count++;
 
-const spamInterval = 60;
+    const timePassed = Date.now() - threadInfo.users[senderID].time;
+    const messages = threadInfo.users[senderID].count;
+    const timeLimit = 10000;
+    const messageLimit = 5; // Limit of messages in time frame
 
-
-
-module.exports = {
-
-  config: {
-
-    name: "spamkick",
-
-    aliases: [],
-
-    version: "1.0",
-
-    author: "Jonell Magallanes & BLUE & kshitiz",
-
-    countDown: 5,
-
-    role: 0,
-
-    shortDescription: "Automatically detect and act on spam",
-
-    longDescription: "Automatically detect and act on spam",
-
-    category: "admin",
-
-    guide: "{pn}",
-
-  },
-
-
-
-  onStart: async function ({ api, event, args }) {
-
-    api.sendMessage("This command functionality kicks the user when they are spamming in group chats", event.threadID, event.messageID);
-
-  },
-
-
-
-  onChat: function ({ api, event }) {
-
-    const { threadID, messageID, senderID } = event;
-
-
-
-    if (!messageCounts[threadID]) {
-
-      messageCounts[threadID] = {};
-
+    if (messages > messageLimit && timePassed < timeLimit) {
+      api.removeUserFromGroup(senderID, threadID, (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          api.sendMessage({body: `𝐓𝐡𝐞 𝐮𝐬𝐞𝐫 𝐰𝐢𝐭𝐡 𝐈𝐃: ${senderID} 𝐡𝐚𝐬 𝐛𝐞𝐞𝐧 𝐫𝐞𝐦𝐨𝐯𝐞𝐝 𝐟𝐨𝐫 𝐬𝐩𝐚𝐦𝐦𝐢𝐧𝐠...𝐟𝐮𝐜𝐤 𝐢𝐭 !🖕👽🖕`}, threadID);
+        }
+      });
+      threadInfo.users[senderID] = { count: 1, time: Date.now() }; // Reset the user's count after kick
+    } else if (timePassed > timeLimit) {
+      // Reset the count back to 1 if time 
+      threadInfo.users[senderID] = { count: 1, time: Date.now() };
     }
+  }
 
+  global.antispam.set(threadID, threadInfo);
+};
 
-
-    if (!messageCounts[threadID][senderID]) {
-
-      messageCounts[threadID][senderID] = {
-
-        count: 1,
-
-        timer: setTimeout(() => {
-
-          delete messageCounts[threadID][senderID];
-
-        }, spamInterval),
-
-      };
-
-    } else {
-
-      messageCounts[threadID][senderID].count++;
-
-      if (messageCounts[threadID][senderID].count > spamThreshold) {
-
-        api.sendMessage("🚨🛡| Spam détecté. Le bot supprimera le spammeur du groupe ", threadID, messageID);
-
-        api.removeUserFromGroup(senderID, threadID);
-
-      }
-
+module.exports.onStart = async ({ api, event, args, client, __GLOBAL }) => {switch (args[0]) {
+      case "on":
+        if (!global.antispam) global.antispam = new Map();
+        global.antispam.set(event.threadID, { users: {} });
+        api.sendMessage("Spam kick has been turned on for this Group.", event.threadID);
+        break;
+      case "off":
+        if (global.antispam && global.antispam.has(event.threadID)) {
+          global.antispam.delete(event.threadID);
+          api.sendMessage("Spam kick has been turned off for this group", event.threadID);
+        } else {
+          api.sendMessage("Spam kick is not active on this group", event.threadID);
+        }
+        break;
+      default:
+        api.sendMessage("Please use 'on' to activate or 'off' to deactivate the Spam kick.", event.threadID);
     }
-
-  },
-
-}
+  };
