@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "ai",
     version: "1.0",
-    author: "Sønïč Shïsûį", // this cmd will expire if you change this credits
+    author: "ミ★𝐒𝐎𝐍𝐈𝐂✄𝐄𝐗𝐄 3.0★彡", // don't change credits 
     countDown: 5,
     role: 0,
     shortDescription: "",
@@ -16,7 +16,10 @@ module.exports = {
  
   onChat: async function({ event, message, getLang, api }) {
    const link = [
-"https://i.ibb.co/xjN5mq3/image.jpg",
+"https://i.ibb.co/jgkqR4T/image.jpg",
+"https://i.ibb.co/K76njFh/image.jpg",
+"https://i.ibb.co/v3xLd9V/image.jpg",
+"https://i.ibb.co/3MKvMJS/image.jpg",
 ]
   let img =
 link[Math.floor(Math.random()*link.length)]
@@ -25,7 +28,7 @@ link[Math.floor(Math.random()*link.length)]
       switch (word) {
         case "ai":
           const replies = [
-            "🚫| 𝐒𝐚𝐥𝐞 𝐝𝐞𝐥𝐢𝐧𝐪𝐮𝐚𝐧𝐭 𝐚𝐩𝐩𝐞𝐥𝐥𝐞𝐬 𝐦𝐨𝐢 𝐩𝐚𝐫 𝐬𝐡𝐢𝐬𝐮𝐢....𝐩𝐚𝐬 𝐚𝐢 !",
+            "📣| 𝐄𝐬𝐩𝐞𝐜𝐞 𝐝𝐞 𝐒𝐚𝐥𝐨𝐩𝐚𝐫𝐝 🖕👽🖕 𝐚𝐩𝐩𝐞𝐥𝐥𝐞𝐬 𝐩𝐚𝐫 𝐒𝐨𝐧𝐢𝐜...𝐩𝐚𝐬 𝐚𝐢 !",
           ];
           api.setMessageReaction("🖕", event.messageID, event.messageID, api); 
           const randomIndex = Math.floor(Math.random() * replies.length);
