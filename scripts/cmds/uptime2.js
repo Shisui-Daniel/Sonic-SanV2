@@ -121,63 +121,34 @@ module.exports = {
       }
 
       const systemInfo = `♡   ∩_∩
-
  （„• ֊ •„)♡
-
 ╭─∪∪────────────⟡
-
 │ 𝗨𝗣𝗧𝗜𝗠𝗘 𝗜𝗡𝗙𝗢
-
 ├───────────────⟡
-
 │ 🤖| 𝗕𝗢𝗧 𝗜𝗡𝗙𝗢 
-
-│ 𝙽𝙰𝙼𝙴: 웃➣『𝐒𝐇𝐈𝐒𝐔𝐈』ツ
-
+│ 𝙽𝙰𝙼𝙴: ༺𝑫𝑬𝑿𝑻𝑬𝑼𝑹ᬊ᭄𝑺𝑯𝑰𝑺𝑼𝑰༻
 │ 𝙻𝙰𝙽𝙶: 𝐍𝐨𝐝𝐞 𝐉𝐒
-
 │ 𝙿𝚁𝙵𝙸𝚇: #
-
 │ 𝙳𝙴𝚅𝚂: 𝙰𝚛𝚢 𝚃𝚎𝚊𝚖
-
 ├───────────────⟡
-
 │ ⏰| 𝗥𝗨𝗡𝗧𝗜𝗠𝗘
-
 │  🎗${uptimeFormatted}🎗
-
 ├───────────────⟡
-
 │ 👑 𝗦𝗬𝗦𝗧𝗘𝗠 𝗜𝗡𝗙𝗢
-
 │𝙾𝚂: ${os.type()} ${os.arch()}
-
 │𝙻𝙰𝙽𝙶 𝚅𝙴𝚁: ${process.version}
-
 │𝙲𝙿𝚄 𝙼𝙾𝙳𝙴𝙻: ${os.cpus()[0].model}
-
 │𝚂𝚃𝙾𝚁𝙰𝙶𝙴: ${usedMemoryGB.toFixed(2)} GB / ${totalMemoryGB.toFixed(2)} GB
-
 │𝙲𝙿𝚄 𝚄𝚂𝙰𝙶𝙴: ${cpuUsage.toFixed(1)}%
-
 │𝚁𝙰𝙼 𝚄𝚂𝙶𝙴: ${process.memoryUsage().heapUsed / 1024 / 1024} MB;
-
 ├───────────────⟡
-
 │ ✅ 𝗢𝗧𝗛𝗘𝗥 𝗜𝗡𝗙𝗢
-
 │𝙳𝙰𝚃𝙴: ${date}
-
 │𝚃𝙸𝙼𝙴: ${time}
-
 │𝚄𝚂𝙴𝚁𝚂: ${allUsers.length}
-
 │𝚃𝙷𝚁𝙴𝙰𝙳𝚂: ${allThreads.length}
-
 │𝙿𝙸𝙽𝙶: ${ping}𝚖𝚜
-
 │𝚂𝚃𝙰𝚃𝚄𝚂: ${pingStatus}
-
 ╰───────────────⟡
 
 `;
