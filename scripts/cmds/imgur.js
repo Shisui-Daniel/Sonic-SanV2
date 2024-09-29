@@ -1,48 +1,34 @@
-const axios = require("axios");
+const axios = require('axios');
 
 module.exports.config = {
-  name: "imgur",
-  version: "6.9",
-  author: "GoatMart",
-  countDown: 5,
-  role: 0,
-  category: "utility",
-  description: "convert image/video/gifs/audio etc. into Imgur link",
-  usages: "reply [image, video, audio, gifs]",
-  category: "tools",
+	name: "imgur",
+	version: "30.0.10",
+	role: 0,
+	credits: "kenglie",
+	description: "imgur upload",
+	hasPrefix: false,
+	usages: "[reply to image]",
+	cooldown: 5,
+	aliases: ["im"]
 };
 
-module.exports.onStart = async function ({ api, event }) {
-  const url = event.messageReply?.attachments[0]?.url;
-  if (!url) {
-    return api.sendMessage(
-      "🌼| Please reply to an image, video, audio, gif etc.",
-      event.threadID,
-      event.messageID,
-    );
-  }
-  
-  try {
-    const baseApiUrl = 'https://g-v1.onrender.com';
-    
-    const uploadResponse = await axios.post(`${baseApiUrl}/v1/upload`, null, {
-      params: { url: url },
-    });
+module.exports.run = async ({ api, event }) => {
+	let link2;
 
-    if (uploadResponse.status !== 200 || !uploadResponse.data.link) {
-      throw new Error('Failed to upload image.');
-    }
+	if (event.type === "message_reply" && event.messageReply.attachments.length > 0) {
+		link2 = event.messageReply.attachments[0].url;
+	} else if (event.attachments.length > 0) {
+		link2 = event.attachments[0].url;
+	} else {
+		return api.sendMessage('No attachment detected. Please reply to an image.', event.threadID, event.messageID);
+	}
 
-    const shortLink = uploadResponse.data.link;
-    
-    return api.sendMessage(shortLink, event.threadID, event.messageID);
-
-  } catch (error) {
-    console.error(error);
-    return api.sendMessage(
-      "🙆| Failed to convert image or video into link.",
-      event.threadID,
-      event.messageID,
-    );
-  }
+	try {
+		const res = await axios.get(`https://eurix-api.replit.app/imgur?link=${encodeURIComponent(link2)}`);
+		const link = res.data.uploaded.image;
+		return api.sendMessage(`Here is the Imgur link for the image you provided:\n\n${link}`, event.threadID, event.messageID);
+	} catch (error) {
+		console.error("Error uploading image to Imgur:", error);
+		return api.sendMessage("An error occurred while uploading the image to Imgur.", event.threadID, event.messageID);
+	}
 };
