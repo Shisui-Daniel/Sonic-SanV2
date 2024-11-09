@@ -4,7 +4,7 @@
 <img src="./snake.svg" alt=banner">
 
 <h1 align="center"><img
-src="https://i.ibb.co/kMdfhwN/image.jpg" width="50px"> compte du bot
+src="/snake.svg" width="50px"> compte du bot
 a voir sur facebook </h1> 
 
 <p align="center">
