@@ -1,10 +1,8 @@
 <img src="https://i.ibb.co/SKzjm9M/image.jpg" alt="banner">
 <h1 align="center"><img src="https://i.ibb.co/9YfCBpV/image.jpg" width="50px"> Hedgehogbot Messenger </h1>
 
-<img src="./snake.svg" alt=banner">
-
 <h1 align="center"><img
-src="/snake.svg" width="50px"> compte du bot
+src="https://i.ibb.co/kMdfhwN/image.jpg" width="50px"> compte du bot
 a voir sur facebook </h1> 
 
 <p align="center">
